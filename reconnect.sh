@@ -6,9 +6,14 @@
 login="login" # sfr wifi fon login
 password="password" # sfr wifi fon password
 vpn_id="vpnid" # vpn connection id (optional)
+wifi_id="SFR WiFi FON" # sfr wifi fon network id
 
 # Optional : disconnect from VPN
-# nmcli con down id $vpn_id
+#nmcli con down id "$vpn_id"
+
+# Optional : disconnect from WiFi and reconnect
+#nmcli con down id "$wifi_id"
+#nmcli con up id "$wifi_id"
 
 # Get redirect url
 redirect_url=$(curl -Ls -o /dev/null -w %{url_effective} detectportal.firefox.com)
@@ -25,4 +30,4 @@ newloc=`grep location post_results | awk 'BEGIN { FS="\"" } { print $2 }'`
 curl -s $newloc -o newloc
 
 # Optional : reconnect to VPN
-# nmcli con up id $vpn_id
+#nmcli con up id "$vpn_id"
